@@ -1,0 +1,59 @@
+---
+- name: Install Docker and deploy Flask app
+  hosts: all
+  gather_facts: true
+  become: true
+  vars:
+     ansible_python_interpreter: /usr/bin/python3
+
+  tasks:
+     - name: Install Docker dependencies
+       yum:
+         name:
+           - yum-utils
+           - device-mapper-persistent-data
+           - lvm2
+         state: present
+
+     - name: Add Docker YUM repository
+       yum_repository:
+         name: Docker
+         description: Docker Repository
+         baseurl: https://download.docker.com/linux/centos/7/$basearch/stable
+         gpgcheck: yes
+         enabled: yes
+         gpgkey: https://download.docker.com/linux/centos/gpg
+ 
+     - name: Install Docker
+       yum:
+         name: docker-ce
+         state: present
+ 
+     - name: Ensure Docker service is running
+       systemd:
+         name: docker
+         state: started
+         enabled: true
+
+     - name: Set Docker API version environment variable
+       ansible.builtin.shell:
+         cmd: "export DOCKER_API_VERSION=1.44"
+
+     - name: Pull Docker image
+       community.docker.docker_image:
+         name: workwave-image
+         source: pull
+       register: result
+       failed_when: result is failed
+
+     - name: debug result
+       debug:
+         var: result
+
+     - name: Run Docker container
+       community.docker.docker_container:
+         name: workwave-container
+         image: jephnewman/workwave:workwave-image
+         ports:
+           - "80:80"
+         state: started

@@ -1,0 +1,42 @@
+name: CI/CD for Blue-Green Deployment
+
+on:
+  push:
+    branches:
+      - main
+      - blue
+      - green
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Set up Docker
+      uses: docker/setup-buildx-action@v2
+
+    - name: Build and Push Docker Image
+      run: |
+        docker build -t {{ secrets.DOCKERHUB_USERNAME }}/my-node-app:${{ github.sha }} .
+        docker push {{ secrets.DOCKERHUB_USERNAME }}/my-node-app:${{ github.sha }}
+
+    - name: Update Helm Values and Deploy
+      run: |
+        IMAGE_TAG=${{ github.sha }}
+        if [[ ${{ github.ref_name }} == "blue" ]]; then
+          helm upgrade --install my-node-app-blue ./helm/my-node-app-chart \
+            --set blue.image.tag=$IMAGE_TAG
+        elif [[ ${{ github.ref_name }} == "green" ]]; then
+          helm upgrade --install my-node-app-green ./helm/my-node-app-chart \
+            --set green.image.tag=$IMAGE_TAG
+        fi
+
+    - name: Update Active Version (Blue/Green Switch)
+      if: github.ref_name == 'main'
+      run: |
+        NEW_ACTIVE_VERSION="blue" # Toggle to "green" manually or programmatically.
+        helm upgrade --install my-node-app-service ./helm/my-node-app-chart \
+          --set activeVersion=$NEW_ACTIVE_VERSION

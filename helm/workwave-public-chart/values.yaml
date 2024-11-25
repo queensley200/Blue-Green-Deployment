@@ -1,0 +1,12 @@
+activeVersion: green
+
+blue:
+  image:
+    tag: "a9f4a7b4925bc4b7d491e0c7558494ec83cffe72"
+
+green:
+  image:
+    tag: "1c812fb94db3fe3a596aa1383ae208fe184d9e3"
+
+image:
+  repository: queensley/my-node-app

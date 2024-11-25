@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rolling-demo
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: rolling-demo
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1  # Max pods that can be unavailable during the update
+      maxSurge: 1        # Max extra pods that can be created during the update
+  template:
+    metadata:
+      labels:
+        app: rolling-demo
+    spec:
+      containers:
+      - name: rolling-app
+        image: queensley/rolling-demo:v1  # Use your custom Docker image
+        ports:
+        - containerPort: 80

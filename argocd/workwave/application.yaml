@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: k8s-workwave
+  namespace: argocd
+spec:
+  project: workwave
+  source:
+    repoURL: 'https://github.com/queensley200/Blue-Green-Deployment.git'
+    path: './kubernetes/workwave'
+    targetRevision: develop
+    helm:
+      valueFiles:
+        - ./values.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: workwave
+  syncPolicy: 
+    manual:
+      prune: true
+      selfHeal: true

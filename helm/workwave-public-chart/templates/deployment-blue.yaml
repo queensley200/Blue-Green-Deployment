@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-node-app-blue
+  namespace: my-node-app
+  labels:
+    app: my-node-app
+    version: blue
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-node-app
+      version: blue
+  template:
+    metadata:
+      labels:
+        app: my-node-app
+        version: blue
+    spec:
+      containers:
+      - name: my-node-app
+        image: "{{ .Values.image.repository }}:{{ .Values.blue.image.tag }}"
+        ports:
+        - containerPort: 3000

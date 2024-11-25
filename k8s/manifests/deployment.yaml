@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: workwave-app
+  labels:
+    app: workwave-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: workwave-app
+  template:
+    metadata:
+      labels:
+        app: workwave-app
+    spec:
+      containers:
+        - name: workwave-app
+          image: queensley/workwave:latest
+          ports:
+            - containerPort: 80
