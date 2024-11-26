@@ -33,10 +33,10 @@ jobs:
       run: |
         IMAGE_TAG=${{ github.sha }}
         if [[ "${{ github.ref_name }}" == "blue" ]]; then
-          helm upgrade --install my-node-app-blue ./helm/my-node-app-chart \
+          helm upgrade --install my-node-app-blue ./helm/workwave-public-chart \
             --set blue.image.tag=$IMAGE_TAG
         elif [[ "${{ github.ref_name }}" == "green" ]]; then
-          helm upgrade --install my-node-app-green ./helm/my-node-app-chart \
+          helm upgrade --install my-node-app-green ./helm//workwave-public-chart \
             --set green.image.tag=$IMAGE_TAG
         fi
 
