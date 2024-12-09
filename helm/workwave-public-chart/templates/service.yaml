@@ -6,7 +6,7 @@ metadata:
 spec:
   selector:
     app: my-node-app
-    version: "{{ .Values.activeVersion }}"
+    version: {{ .Values.activeVersion }}
   ports:
   - protocol: TCP
     port: 80
