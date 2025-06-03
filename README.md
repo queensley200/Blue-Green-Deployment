@@ -1,11 +1,11 @@
 ![image](https://github.com/user-attachments/assets/d081dce5-f409-4bed-959d-e5c62f99e7cc)
+![image](https://github.com/user-attachments/assets/957b9b94-7e36-4713-b297-606b5fece860)
+![image](https://github.com/user-attachments/assets/d19d5600-13a4-42f6-a350-cc526c1e8543)
 
 
 # 🌱 Blue-Green Deployment with GitHub Actions, Terraform, Ansible, Helm & ArgoCD
 
 This project demonstrates a complete CI/CD pipeline with a **blue-green deployment strategy** using **GitHub Actions**, **Docker**, **Kubernetes**, **Helm**, **Ansible**, and **Terraform**. The infrastructure is provisioned using non-modular Terraform and deployed locally via **Minikube** with GitOps powered by **ArgoCD**.
-
-
 
 ## 🚀 Project Highlights
 
@@ -40,8 +40,11 @@ This project demonstrates a complete CI/CD pipeline with a **blue-green deployme
 │   ├── workwave-public-chart/       # Helm chart for blue/green app
 │   └── my-node-app-chart/           # Helm chart managing active version
 ├── terraform/                        # Non-modular Terraform for infrastructure
+├── public
+├──src
+├──workwave
 ├── Dockerfile                        # Node.js app container config
-├── values.yaml                       # Helm values (active version, image tag)
+├── grafana.yaml
 └── README.md
 
 ---
