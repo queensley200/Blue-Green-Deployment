@@ -1,3 +1,5 @@
+![image](https://github.com/user-attachments/assets/d081dce5-f409-4bed-959d-e5c62f99e7cc)
+
 
 # 🌱 Blue-Green Deployment with GitHub Actions, Terraform, Ansible, Helm & ArgoCD
 
