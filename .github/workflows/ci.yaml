@@ -29,20 +29,20 @@ jobs:
         docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/my-node-app:${{ github.sha }} .
         docker push ${{ secrets.DOCKERHUB_USERNAME }}/my-node-app:${{ github.sha }}
 
-    - name: Update Helm Values and Deploy
-      run: |
-        IMAGE_TAG=${{ github.sha }}
-        if [[ "${{ github.ref_name }}" == "blue" ]]; then
-          helm upgrade --install my-node-app-blue ./helm/workwave-public-chart \
-            --set blue.image.tag=$IMAGE_TAG
-        elif [[ "${{ github.ref_name }}" == "green" ]]; then
-          helm upgrade --install my-node-app-green ./helm/workwave-public-chart \
-            --set green.image.tag=$IMAGE_TAG
-        fi
+    # - name: Update Helm Values and Deploy
+    #   run: |
+    #     IMAGE_TAG=${{ github.sha }}
+    #     if [[ "${{ github.ref_name }}" == "blue" ]]; then
+    #       helm upgrade --install my-node-app-blue ./helm/workwave-public-chart \
+    #         --set blue.image.tag=$IMAGE_TAG
+    #     elif [[ "${{ github.ref_name }}" == "green" ]]; then
+    #       helm upgrade --install my-node-app-green ./helm/workwave-public-chart \
+    #         --set green.image.tag=$IMAGE_TAG
+    #     fi
 
-    - name: Update Active Version (Blue/Green Switch)
-      if: github.ref_name == 'main'
-      run: |
-        NEW_ACTIVE_VERSION="blue" # Toggle to "green" manually or programmatically.
-        helm upgrade --install my-node-app-service ./helm/my-node-app-chart \
-          --set activeVersion=$NEW_ACTIVE_VERSION
+    # - name: Update Active Version (Blue/Green Switch)
+    #   if: github.ref_name == 'main'
+    #   run: |
+    #     NEW_ACTIVE_VERSION="blue" # Toggle to "green" manually or programmatically.
+    #     helm upgrade --install my-node-app-service ./helm/my-node-app-chart \
+    #       --set activeVersion=$NEW_ACTIVE_VERSION
