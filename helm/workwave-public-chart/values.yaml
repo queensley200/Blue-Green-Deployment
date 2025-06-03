@@ -5,7 +5,7 @@ blue:
     tag: "f74ef2121f733bf359ad5e22377530df8f41078d"
 green:
   image:
-    tag: "1c812fb94db3fe3a596aa1383ae208fe184d9e3"
+    tag: "21c80a62756d26ea58ecd876107216ee9773c258"
 
 image:
   repository: queensley/my-node-app
