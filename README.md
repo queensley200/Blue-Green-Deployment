@@ -2,7 +2,7 @@
 ![image](https://github.com/user-attachments/assets/957b9b94-7e36-4713-b297-606b5fece860)
 ![image](https://github.com/user-attachments/assets/d19d5600-13a4-42f6-a350-cc526c1e8543)
 ![image](https://github.com/user-attachments/assets/7223d7ca-d265-47dd-b121-563585810f67)
-![image](https://github.com/user-attachments/assets/8bb4e6cb-10a9-40ee-a1bc-eb404f133eb3)
+
 
 
 # 🌱 Blue-Green Deployment with GitHub Actions, Terraform, Ansible, Helm & ArgoCD
